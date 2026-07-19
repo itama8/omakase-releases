@@ -2,7 +2,7 @@
 
 Official preview binaries for **Omakase**, a cursor-first programmable scratchpad.
 
-Download builds from the [Releases](../../releases) page. Every release includes platform-specific SHA-256 checksum files and build metadata identifying the private source commit used to produce it.
+Download builds from the [Releases](https://github.com/itama8/omakase-releases/releases) page. Every release includes platform-specific SHA-256 checksum files and build metadata identifying the private source commit used to produce it.
 
 ## Preview warning
 
