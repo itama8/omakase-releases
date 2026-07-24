@@ -16,49 +16,47 @@ Open [Releases](https://github.com/itama8/omakase-releases/releases), choose the
 
 These are **no-install binaries**, packaged ad hoc for testing rather than through a finished distribution channel. Startup—especially the first launch—can be slower than a normal installed app. Do not mistake a short delay for a hung app.
 
-Each release includes SHA-256 checksum files and build metadata identifying the exact source commit. Verify a checksum before bypassing an operating-system warning:
+Download from this repository's **Releases** page. That is all most testers need to do.
 
-- **Windows (PowerShell):** `Get-FileHash .\Omakase-…-windows-x64.exe -Algorithm SHA256`
-- **macOS/Linux:** `shasum -a 256 <downloaded-file>`
+You will also see files named `SHA256SUMS-…` and `BUILD-INFO-…`. They are optional technical records for people who want to check a download; you can safely ignore them while getting started.
 
-Compare the output with the matching `SHA256SUMS-*.txt` file in that release.
+## Unsigned-build warnings: how to open Omakase
 
-## Unsigned-build warnings and how to run
-
-These early binaries are **unsigned**. Windows SmartScreen and macOS Gatekeeper warnings are expected. Only bypass a warning after downloading from this repository and verifying its checksum.
+These early test apps are **not signed yet**, so Windows and macOS will show a warning. That is expected. Only use the steps below for a file you downloaded from this repository's Releases page.
 
 ### Windows
 
-1. Download the portable `.exe` and verify its SHA-256 checksum.
-2. In the **Windows protected your PC** SmartScreen dialog, select **More info**.
-3. Confirm the file name is the Omakase release you verified, then select **Run anyway**.
-4. If Windows flags it again from Explorer, right-click the file, choose **Properties**, select **Unblock** if present, then choose **Apply** and open it.
+1. Download the Windows `.exe`.
+2. Open it. When Windows says **Windows protected your PC**, click **More info**.
+3. Click **Run anyway**.
+4. If Windows still blocks it: right-click the `.exe` → **Properties** → check **Unblock** (if shown) → **Apply** → open it again.
 
-### macOS (Apple Silicon)
+### macOS (Apple Silicon / M-series Macs)
 
-1. Download the DMG or ZIP, verify its SHA-256 checksum, and copy `Omakase.app` to **Applications** (or another folder you control).
-2. Control-click `Omakase.app`, choose **Open**, then choose **Open** again in the warning dialog. This is the normal one-time Gatekeeper override for an unsigned app.
-3. If macOS instead says the app is “damaged” or cannot be opened, open Terminal and run the following **only after checksum verification** (adjust the path if needed):
+1. Download the DMG or ZIP and move `Omakase.app` to **Applications**.
+2. Control-click `Omakase.app` → **Open** → **Open** again.
 
-   ```bash
-   xattr -dr com.apple.quarantine "/Applications/Omakase.app"
-   codesign --force --deep --sign - "/Applications/Omakase.app"
-   open "/Applications/Omakase.app"
-   ```
+If macOS says the app is “damaged” or cannot be opened, open **Terminal**, paste this, and press Return:
 
-The second command locally ad-hoc-signs the copy on your Mac. It does not make the download developer-signed or notarized. Proper Developer ID signing and notarization are planned improvements.
+```bash
+xattr -dr com.apple.quarantine "/Applications/Omakase.app"
+codesign --force --deep --sign - "/Applications/Omakase.app"
+open "/Applications/Omakase.app"
+```
+
+This tells your Mac to trust and locally sign that copy of Omakase. If you would rather not use Terminal, wait for a future signed build.
 
 ### Linux
 
-1. Verify the AppImage checksum.
-2. Mark it executable and run it:
+1. Download the `.AppImage`.
+2. Open a terminal in the download folder and run:
 
    ```bash
    chmod +x Omakase-*.AppImage
    ./Omakase-*.AppImage
    ```
 
-If your distribution blocks AppImages, consult its AppImage/FUSE guidance. The test build is x64 only.
+The Linux build is x64 only. If your Linux distribution blocks AppImages, look up its AppImage/FUSE setup instructions.
 
 ## What it is / quick start
 
